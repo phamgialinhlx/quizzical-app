@@ -1,14 +1,16 @@
 import { Fragment } from 'react'
-import { useState } from 'react'
+import { useContext } from 'react'
 import { Button } from '@mui/material'
+import { QuizzesData } from './Quiz'
 
-const Solution = ({
-  answers,
-  correctAnswers,
-  quizIndex,
-  choices,
-  setChoices,
-}) => {
+const Solution = ({ quizIndex }) => {
+  const quizzesData = useContext(QuizzesData)
+
+  const answers = quizzesData.quizzes[quizIndex].answers
+  const correctAnswers = quizzesData.correctAnswers
+  const choices = quizzesData.choicesContextValue.choices
+  const setChoices = quizzesData.choicesContextValue.setChoices
+
   const style = {
     // height: '20.65px',
     color: '#293264',
@@ -33,13 +35,7 @@ const Solution = ({
   }
 
   const chooseStyle = (answerIndex) => {
-    // console.log(answerIndex)
-    // console.log(correctAnswers)
-    // console.log(choices)
-    // console.log(quizIndex)
-    
     if (answerIndex === correctAnswers[quizIndex]) {
-        console.log('correct', answerIndex, correctAnswers[quizIndex], choices[quizIndex])
         return {...style, 
             '&:disabled': {
                 backgroundColor: '#94D7A2',
@@ -47,7 +43,6 @@ const Solution = ({
             }
         }
     } else if (answerIndex === choices[quizIndex]) {
-        console.log('incorrect', answerIndex, correctAnswers[quizIndex], choices[quizIndex])
         return {...style,
             '&:disabled': {
                 backgroundColor: '#F8BCBC',

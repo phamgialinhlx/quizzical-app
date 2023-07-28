@@ -1,9 +1,18 @@
-import { Fragment } from 'react'
-import { useState } from 'react'
+import { Fragment, useEffect } from 'react'
+import { useState, useContext } from 'react'
 import { Button } from '@mui/material'
+import { QuizzesData } from './Quiz'
 
-const Answers = ({ answers, quizIndex, choices, setChoices }) => {
+const Answers = ({ quizIndex }) => {
   //   const [choice, setChoice] = useState(-1)
+  const quizzesData = useContext(QuizzesData)
+  const answers = quizzesData.quizzes[quizIndex].answers
+  const choices = quizzesData.choicesContextValue.choices
+  const setChoices = quizzesData.choicesContextValue.setChoices
+
+  useEffect(() => {
+    console.log('[Answers]', quizzesData)
+  }, []);
 
   return (
     <Fragment>
